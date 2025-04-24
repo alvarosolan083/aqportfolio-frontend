@@ -39,7 +39,7 @@ const ContactForm = () => {
       console.log("✅ Token reCAPTCHA generado:", token);
       recaptchaRef.current.reset();
 
-      const response = await fetch("http://localhost:5000/send-email", {
+      const response = await fetch("https://portafolio-backend-lw23.onrender.com/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
