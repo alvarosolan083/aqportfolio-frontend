@@ -1,5 +1,5 @@
 const FooterLine = () => {
-  return <div>FooterLine</div>;
+  return <div className="w-full h-[1px] bg-lightGrey my-8"></div>;
 };
 
 export default FooterLine;

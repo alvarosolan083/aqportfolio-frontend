@@ -1,17 +1,16 @@
 const ExperienceTopRight = () => {
   return (
-    <div className="xl:w-[25%] lg:w-[30%] border border-lightBrown p-4 rounded-xl">
-      <p className="text-lg text-center text-lightGrey">
-        I specialize in{" "}
+    <div className="xl:w-[25%] lg:w-[30%] border border-lightBrown p-6 rounded-xl bg-transparent">
+      <p className="text-base text-lightGrey text-center leading-relaxed">
+        Me especializo en{" "}
         <span className="font-bold text-white">
-          React and modern JavaScript
+          desarrollo Full Stack con React, Angular y Node.js
         </span>
-        , leveraging best practices to create scalable and maintainable
-        solutions. <br />
-        My experience spans working on diverse projects, from small business
-        websites to{" "}
-        <span className="font-bold text-white">complex front-end systems</span>,
-        always aiming for clean code and exceptional user experiences.
+        , aplicando buenas prácticas para crear soluciones seguras, mantenibles y eficientes.
+        <br /><br />
+        He participado en proyectos de distintas industrias, desde sitios institucionales hasta{" "}
+        <span className="font-bold text-white">plataformas complejas con microservicios</span>,
+        priorizando siempre una excelente experiencia para el usuario.
       </p>
     </div>
   );

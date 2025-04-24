@@ -9,16 +9,20 @@ const HeroPic = () => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0 }}
-      className=" h-full flex items-center justify-center "
+      className="relative flex items-center justify-center h-[460px] w-[400px]"
     >
-      <img
-        src="../../public/images/HexaPic.png"
-        alt="Abdelrahman Qassem"
-        className="max-h-[450px] w-auto"
-      />
+      {/* Fondo hexagonal animado */}
+      <div className="absolute inset-0 z-0 flex justify-center items-center animate-pulse">
+        <PiHexagonThin className="h-full w-full text-cyan blur-md animate-[spin_20s_linear_infinite]" />
+      </div>
 
-      <div className=" absolute -z-10 flex justify-center items-center animate-pulse ">
-        <PiHexagonThin className=" md:h-[90%] sm:h-[120%] min-h-[600px] w-auto text-cyan blur-md animate-[spin_20s_linear_infinite] " />
+      {/* Imagen centrada y recortada dentro del hexágono */}
+      <div className="z-10 w-[260px] h-[300px] overflow-hidden clip-hexagon">
+        <img
+          src="/images/image.png"
+          alt="Álvaro Solano"
+          className="w-full h-full object-cover"
+        />
       </div>
     </motion.div>
   );

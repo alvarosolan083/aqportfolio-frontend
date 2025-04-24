@@ -27,13 +27,15 @@ const SingleProject = ({ name, year, align, image, link }) => {
           className={`text-lg flex gap-2 items-center text-cyan hover:text-orange transition-all duration-500 cursor-pointer sm:justify-self-center ${
             align === "left" ? "md:justify-self-end" : "md:justify-self-start"
           }`}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          View <BsFillArrowUpRightCircleFill />
+          Ver proyecto <BsFillArrowUpRightCircleFill />
         </a>
       </div>
       <div className="max-h-[220px] max-w-[400px] rounded-xl overflow-hidden hover:scale-110 transform transition-all duration-500 ralative border border-white">
         <div className="w-full h-full bg-cyan opacity-50 absolute top-0 left-0 hover:opacity-0 transition-all duration-500 md:block sm:hidden"></div>
-        <img src={image} alt="website image" className="w-full h-full" />
+        <img src={image} alt={`Imagen del proyecto ${name}`} className="w-full h-full" />
       </div>
     </motion.div>
   );
