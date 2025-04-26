@@ -4,7 +4,7 @@ const AboutMeImage = () => {
       {/* Imagen hexagonal */}
       <div className="absolute z-10 inset-0 flex items-center justify-center">
         <img
-          src="/images/image.png" // si está en public
+          src="/images/image.png" 
           alt="About Me Image"
           className="w-[280px] h-auto object-contain"
         />
