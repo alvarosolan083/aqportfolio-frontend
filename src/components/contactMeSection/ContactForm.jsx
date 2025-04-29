@@ -6,59 +6,45 @@ const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+  const [token, setToken] = useState("");
   const recaptchaRef = useRef();
-
-  // Verificación de que la clave de reCAPTCHA existe
-  useEffect(() => {
-    const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-    console.log("🔐 Clave de sitio reCAPTCHA:", siteKey);
-
-    if (!siteKey) {
-      alert("⚠️ Error: No se encontró la clave de reCAPTCHA en .env");
-      setSuccess("⚠️ Error de configuración: falta la clave de reCAPTCHA.");
-    }
-  }, []);
 
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
   const handleMessage = (e) => setMessage(e.target.value);
 
+  const handleRecaptchaChange = (value) => {
+    console.log("✅ reCAPTCHA Token:", value);
+    setToken(value);
+  };
+
   const sendEmail = async (e) => {
     e.preventDefault();
-    console.log("📨 Enviando formulario...");
 
-    if (!recaptchaLoaded) {
-      console.error("❌ reCAPTCHA no está listo aún");
-      alert("❌ reCAPTCHA no se ha cargado. Intenta recargar la página.");
+    if (!token) {
+      alert("⚠️ Debes verificar el reCAPTCHA antes de enviar.");
       return;
     }
 
     try {
-      const token = await recaptchaRef.current.executeAsync();
-      console.log("✅ Token reCAPTCHA generado:", token);
-      recaptchaRef.current.reset();
-
       const response = await fetch("https://portafolio-backend-lw23.onrender.com/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, token }),
       });
 
       const data = await response.json();
-      console.log("📥 Respuesta del backend:", data);
 
       if (response.ok) {
         setSuccess("¡Mensaje enviado con éxito!");
         setName("");
         setEmail("");
         setMessage("");
-        console.log("✅ Formulario limpio y éxito mostrado");
+        recaptchaRef.current.reset();
+        setToken("");
       } else {
-        console.error("❌ Error en backend:", data.message);
-        setSuccess("Hubo un error al enviar el mensaje.");
+        setSuccess("❌ Hubo un error al enviar el mensaje.");
+        console.error("❌ Error backend:", data.message);
       }
     } catch (error) {
       console.error("❌ Error en la solicitud:", error);
@@ -101,15 +87,9 @@ const ContactForm = () => {
         <ReCAPTCHA
           ref={recaptchaRef}
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size="invisible"
+          onChange={handleRecaptchaChange}
           onErrored={() => {
-            console.error("⚠️ Error al cargar reCAPTCHA");
             alert("⚠️ Error al cargar reCAPTCHA. Intenta recargar la página.");
-          }}
-          onExpired={() => console.warn("⚠️ El token expiró")}
-          onLoad={() => {
-            setRecaptchaLoaded(true);
-            console.log("✅ reCAPTCHA cargado");
           }}
         />
         <button
