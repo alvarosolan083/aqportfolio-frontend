@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactForm = () => {
@@ -6,17 +6,12 @@ const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(""); // ← Solo aquí está bien
   const recaptchaRef = useRef();
 
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
   const handleMessage = (e) => setMessage(e.target.value);
-
-  const handleRecaptchaChange = (value) => {
-    console.log("✅ reCAPTCHA Token:", value);
-    setToken(value);
-  };
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -87,9 +82,15 @@ const ContactForm = () => {
         <ReCAPTCHA
           ref={recaptchaRef}
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          onChange={handleRecaptchaChange}
+          size="normal"
+          onChange={(token) => setToken(token)}
           onErrored={() => {
+            console.error("⚠️ Error al cargar reCAPTCHA");
             alert("⚠️ Error al cargar reCAPTCHA. Intenta recargar la página.");
+          }}
+          onExpired={() => {
+            console.warn("⚠️ El token expiró");
+            setToken("");
           }}
         />
         <button
