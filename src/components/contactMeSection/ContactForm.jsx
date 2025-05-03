@@ -15,27 +15,27 @@ const ContactForm = () => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-
+  
     if (!token) {
       alert("⚠️ Debes verificar el reCAPTCHA antes de enviar.");
       return;
     }
-
+  
     try {
-      const response = await fetch("https://portafolio-backend-lw23.onrender.com/send-email", {
+      const response = await fetch("https://portafolio-backend-c3a2.onrender.com/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, token }),
+        body: JSON.stringify({ name, email, message, token }),  // 👈 Asegúrate que se envía el token
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         setSuccess("¡Mensaje enviado con éxito!");
         setName("");
         setEmail("");
         setMessage("");
-        recaptchaRef.current.reset();
+        recaptchaRef.current.reset();  // 👈 Reinicia reCAPTCHA
         setToken("");
       } else {
         setSuccess("❌ Hubo un error al enviar el mensaje.");
@@ -46,6 +46,7 @@ const ContactForm = () => {
       setSuccess("Error del servidor al enviar el mensaje.");
     }
   };
+  
 
   return (
     <div>
