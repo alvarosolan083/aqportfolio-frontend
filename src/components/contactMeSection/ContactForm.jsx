@@ -58,10 +58,11 @@ const ContactForm = () => {
     <div className="relative">
       {toast && (
         <div
-          className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded shadow-lg z-50 animate-slidefade w-[calc(100%-2rem)] max-w-sm ${
-            toast.type === "success"
-              ? "bg-green-100 text-green-900 border border-green-400"
-              : "bg-red-100 text-red-900 border border-red-400"
+        className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded z-50 animate-slidefade w-[calc(100%-2rem)] max-w-sm
+          shadow-lg transition-all duration-300 ease-in-out
+          ${toast.type === "success"
+            ? "bg-green-100 text-green-900 border border-green-400"
+            : "bg-red-100 text-red-900 border border-red-400"
           }`}
         >
           <span className="flex-1 text-sm">{toast.msg}</span>
