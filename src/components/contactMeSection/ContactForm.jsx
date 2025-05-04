@@ -5,52 +5,75 @@ const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState("");
-  const [token, setToken] = useState(""); // ← Solo aquí está bien
+  const [token, setToken] = useState("");
+  const [toast, setToast] = useState(null); // { msg: "", type: "success" | "error" }
   const recaptchaRef = useRef();
 
   const handleName = (e) => setName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
   const handleMessage = (e) => setMessage(e.target.value);
 
+  const showToast = (msg, type = "success") => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const closeToast = () => setToast(null);
+
   const sendEmail = async (e) => {
     e.preventDefault();
-  
+
     if (!token) {
       alert("⚠️ Debes verificar el reCAPTCHA antes de enviar.");
       return;
     }
-  
+
     try {
       const response = await fetch("https://portafolio-backend-c3a2.onrender.com/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, token }),  // 👈 Asegúrate que se envía el token
+        body: JSON.stringify({ name, email, message, token }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
-        setSuccess("¡Mensaje enviado con éxito!");
+        showToast("✅ ¡Mensaje enviado con éxito!", "success");
         setName("");
         setEmail("");
         setMessage("");
-        recaptchaRef.current.reset();  // 👈 Reinicia reCAPTCHA
+        recaptchaRef.current.reset();
         setToken("");
       } else {
-        setSuccess("❌ Hubo un error al enviar el mensaje.");
-        console.error("❌ Error backend:", data.message);
+        showToast("❌ Hubo un error al enviar el mensaje.", "error");
+        console.error("❌ Backend error:", data.message);
       }
     } catch (error) {
-      console.error("❌ Error en la solicitud:", error);
-      setSuccess("Error del servidor al enviar el mensaje.");
+      showToast("❌ Error del servidor al enviar el mensaje.", "error");
+      console.error("❌ Solicitud fallida:", error);
     }
   };
-  
 
   return (
-    <div>
-      <p className="text-cyan text-sm font-semibold">{success}</p>
+    <div className="relative">
+      {toast && (
+        <div
+          className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded shadow-lg z-50 animate-slidefade ${
+            toast.type === "success"
+              ? "bg-green-100 text-green-900 border border-green-400"
+              : "bg-red-100 text-red-900 border border-red-400"
+          }`}
+        >
+          <span>{toast.msg}</span>
+          <button
+            onClick={closeToast}
+            className="ml-2 text-xl font-bold leading-none hover:text-black transition"
+          >
+            &times;
+          </button>
+        </div>
+      )}
+
       <form onSubmit={sendEmail} className="flex flex-col gap-4">
         <input
           type="text"

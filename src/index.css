@@ -6,3 +6,34 @@
 body {
   @apply bg-darkBrown;
 }
+@keyframes slidefade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slidefade {
+  animation: slidefade 0.5s ease-out;
+}
+
+@keyframes slidefade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slidefade {
+  animation: slidefade 0.4s ease-out;
+}
+
+
