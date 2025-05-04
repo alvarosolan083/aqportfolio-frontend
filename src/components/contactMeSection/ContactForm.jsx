@@ -6,13 +6,9 @@ const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
-  const [toast, setToast] = useState(null); // { msg, type }
+  const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
   const recaptchaRef = useRef();
-
-  const handleName = (e) => setName(e.target.value);
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handleMessage = (e) => setMessage(e.target.value);
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
@@ -58,17 +54,23 @@ const ContactForm = () => {
     <div className="relative">
       {toast && (
         <div
-        className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded z-50 animate-slidefade w-[calc(100%-2rem)] max-w-sm
-          shadow-lg transition-all duration-300 ease-in-out
-          ${toast.type === "success"
-            ? "bg-green-100 text-green-900 border border-green-400"
-            : "bg-red-100 text-red-900 border border-red-400"
-          }`}
+          className={`fixed top-6 left-1/2 transform -translate-x-1/2 md:left-auto md:right-6 md:translate-x-0
+            flex items-center gap-3 px-6 py-4 rounded-xl shadow-xl z-50 animate-slidefade w-[90vw] max-w-md
+            transition-all duration-500
+            ${toast.type === "success"
+              ? "bg-green-600 text-white"
+              : "bg-red-600 text-white"
+            }`}
         >
-          <span className="flex-1 text-sm">{toast.msg}</span>
+          <span className="text-2xl">
+            {toast.type === "success" ? "✅" : "❌"}
+          </span>
+          <span className="flex-1 text-sm md:text-base font-medium">
+            {toast.msg}
+          </span>
           <button
             onClick={closeToast}
-            className="ml-2 text-xl font-bold leading-none hover:text-black transition"
+            className="text-xl font-bold leading-none hover:text-gray-300 transition"
             aria-label="Cerrar notificación"
           >
             &times;
@@ -84,7 +86,7 @@ const ContactForm = () => {
           required
           className="h-12 rounded-lg bg-lightBrown px-4 text-white placeholder-white"
           value={name}
-          onChange={handleName}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"
@@ -93,7 +95,7 @@ const ContactForm = () => {
           required
           className="h-12 rounded-lg bg-lightBrown px-4 text-white placeholder-white"
           value={email}
-          onChange={handleEmail}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <textarea
           name="message"
@@ -102,7 +104,7 @@ const ContactForm = () => {
           required
           className="rounded-lg bg-lightBrown p-4 text-white placeholder-white"
           value={message}
-          onChange={handleMessage}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <ReCAPTCHA
           ref={recaptchaRef}
