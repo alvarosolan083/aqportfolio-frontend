@@ -6,7 +6,8 @@ const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
-  const [toast, setToast] = useState(null); // { msg: "", type: "success" | "error" }
+  const [toast, setToast] = useState(null); // { msg, type }
+  const [loading, setLoading] = useState(false);
   const recaptchaRef = useRef();
 
   const handleName = (e) => setName(e.target.value);
@@ -15,18 +16,17 @@ const ContactForm = () => {
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
-    setTimeout(() => setToast(null), 4000);
+    setTimeout(() => setToast(null), 5000);
   };
 
   const closeToast = () => setToast(null);
 
   const sendEmail = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    if (!token) return alert("⚠️ Verifica el reCAPTCHA antes de enviar.");
 
-    if (!token) {
-      alert("⚠️ Debes verificar el reCAPTCHA antes de enviar.");
-      return;
-    }
+    setLoading(true);
 
     try {
       const response = await fetch("https://portafolio-backend-c3a2.onrender.com/send-email", {
@@ -45,12 +45,12 @@ const ContactForm = () => {
         recaptchaRef.current.reset();
         setToken("");
       } else {
-        showToast("❌ Hubo un error al enviar el mensaje.", "error");
-        console.error("❌ Backend error:", data.message);
+        showToast("❌ Error al enviar: " + data.message, "error");
       }
     } catch (error) {
-      showToast("❌ Error del servidor al enviar el mensaje.", "error");
-      console.error("❌ Solicitud fallida:", error);
+      showToast("❌ Error del servidor. Intenta más tarde.", "error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,16 +58,17 @@ const ContactForm = () => {
     <div className="relative">
       {toast && (
         <div
-          className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded shadow-lg z-50 animate-slidefade ${
+          className={`fixed top-4 right-4 flex items-center justify-between gap-4 px-4 py-3 rounded shadow-lg z-50 animate-slidefade w-[calc(100%-2rem)] max-w-sm ${
             toast.type === "success"
               ? "bg-green-100 text-green-900 border border-green-400"
               : "bg-red-100 text-red-900 border border-red-400"
           }`}
         >
-          <span>{toast.msg}</span>
+          <span className="flex-1 text-sm">{toast.msg}</span>
           <button
             onClick={closeToast}
             className="ml-2 text-xl font-bold leading-none hover:text-black transition"
+            aria-label="Cerrar notificación"
           >
             &times;
           </button>
@@ -80,7 +81,7 @@ const ContactForm = () => {
           name="name"
           placeholder="Tu Nombre"
           required
-          className="h-12 rounded-lg bg-lightBrown px-2"
+          className="h-12 rounded-lg bg-lightBrown px-4 text-white placeholder-white"
           value={name}
           onChange={handleName}
         />
@@ -89,39 +90,38 @@ const ContactForm = () => {
           name="email"
           placeholder="Tu Correo"
           required
-          className="h-12 rounded-lg bg-lightBrown px-2"
+          className="h-12 rounded-lg bg-lightBrown px-4 text-white placeholder-white"
           value={email}
           onChange={handleEmail}
         />
         <textarea
           name="message"
-          rows="9"
-          cols="50"
+          rows="6"
           placeholder="Escribe tu mensaje aquí..."
           required
-          className="rounded-lg bg-lightBrown p-2"
+          className="rounded-lg bg-lightBrown p-4 text-white placeholder-white"
           value={message}
           onChange={handleMessage}
         />
         <ReCAPTCHA
           ref={recaptchaRef}
           sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-          size="normal"
           onChange={(token) => setToken(token)}
           onErrored={() => {
-            console.error("⚠️ Error al cargar reCAPTCHA");
-            alert("⚠️ Error al cargar reCAPTCHA. Intenta recargar la página.");
+            alert("⚠️ Error al cargar reCAPTCHA");
+            console.error("Error reCAPTCHA");
           }}
           onExpired={() => {
-            console.warn("⚠️ El token expiró");
             setToken("");
+            console.warn("⚠️ Token expirado");
           }}
         />
         <button
           type="submit"
-          className="w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500"
+          disabled={loading}
+          className="w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500 disabled:opacity-60"
         >
-          Enviar
+          {loading ? "Enviando..." : "Enviar"}
         </button>
       </form>
     </div>
