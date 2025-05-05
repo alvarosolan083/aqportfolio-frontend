@@ -1,26 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* General layout */
 body {
   @apply bg-darkBrown;
 }
-@keyframes slidefade {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.animate-slidefade {
-  animation: slidefade 0.5s ease-out;
-}
-
+/* Animaciones */
 @keyframes slidefade {
   from {
     opacity: 0;
@@ -36,4 +32,39 @@ body {
   animation: slidefade 0.4s ease-out;
 }
 
+/* Logo de React de prueba (puedes eliminar si no usas Vite template) */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
 
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Extras del template (si los mantienes) */
+.card {
+  padding: 2em;
+}
+.read-the-docs {
+  color: #888;
+}

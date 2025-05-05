@@ -1,15 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  safelist: [
-    'animate-slidefade',
-    'bg-green-100',
-    'bg-red-100',
-    'border-green-400',
-    'border-red-400',
-    'text-green-900',
-    'text-red-900'
-  ],
   theme: {
     screens: {
       sm: "350px",

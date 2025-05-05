@@ -12,7 +12,8 @@ import SubHeroMain from "./components/subHeroSection/SubHeroMain";
 
 function App() {
   return (
-    <main className="font-body text-white relative overflow-x-hidden">
+    <main className="font-body text-white relative overflow-x-hidden px-4 sm:px-6 md:px-10">
+
 
       <NavbarMain />
       <HeroMain />
