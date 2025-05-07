@@ -30,8 +30,9 @@ const HeroText = () => {
         viewport={{ once: false, amount: 0 }}
         className="text-lg mt-4"
       >
-        Desarrollador web apasionado por el frontend y backend, con más de 3 años
-        de experiencia creando soluciones modernas, funcionales y seguras.
+        Profesional del desarrollo web (frontend y backend) con más de 3 años 
+        dedicados a construir soluciones digitales innovadoras, funcionales y 
+        con foco en la seguridad.
       </motion.p>
     </div>
   );

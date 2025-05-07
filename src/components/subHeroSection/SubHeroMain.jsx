@@ -1,9 +1,30 @@
+import { FiCheckCircle } from "react-icons/fi";
+
 const SubHeroMain = () => {
   return (
-    <div className="w-full border-y bg-brown border-lightGrey text-lightGrey flex justify-around uppercase xl:text-4xl md:text-2xl sm:text-4xl py-8 md:flex-row sm:flex-col items-center gap-4">
-      <p className="md:block sm:hidden">Aprendizaje Rapido</p>
-      <p className="md:block sm:hidden">Trabajo en Equipo</p>
-      <p>Detallista</p>
+    <div className="w-full border-y bg-brown border-lightGrey text-lightGrey py-6 px-4">
+      <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-center uppercase">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
+          <FiCheckCircle className="text-orange text-base sm:text-lg" />
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl break-words whitespace-normal">
+            Aprendizaje Rápido
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
+          <FiCheckCircle className="text-orange text-base sm:text-lg" />
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl break-words whitespace-normal">
+            Trabajo en Equipo
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
+          <FiCheckCircle className="text-orange text-base sm:text-lg" />
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl break-words whitespace-normal">
+            Detallista
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

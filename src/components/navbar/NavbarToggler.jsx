@@ -1,19 +1,25 @@
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useDispatch } from "react-redux";
+import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../state/menuSlice";
 
 const NavbarToggler = () => {
   const dispatch = useDispatch();
+  const menuOpen = useSelector((state) => state.menu.menuOpen);
 
-  const setToggleMenu = () => {
+  const handleToggle = () => {
     dispatch(toggleMenu());
   };
+
   return (
     <button
-      className="text-2xl p-3 border border-orange rounded-full"
-      onClick={setToggleMenu}
+      onClick={handleToggle}
+      style={menuOpen ? { backgroundColor: "rgb(251 151 24)" } : {}}
+      className={`text-2xl p-3 border border-orange rounded-full 
+        transition-all duration-300 ease-in-out 
+        ${menuOpen ? "text-black scale-110" : "bg-black text-white hover:scale-105"}`}
     >
-      <GiHamburgerMenu />
+      {menuOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
     </button>
   );
 };

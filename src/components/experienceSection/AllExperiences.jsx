@@ -5,35 +5,36 @@ import { fadeIn } from "../../framerMotion/variants";
 
 const experiences = [
   {
+    job: "Práctica Profesional",
+    company: "Vass Chile",
+    date: "2019",
+    responsibilities: [
+      "Apoyo en tareas de desarrollo Front-End y Back-End con tecnologías como React, Angular y Node.js.",
+      "Colaboración en proyectos internos del área de salud.",
+      "Participación en el diseño básico de interfaces de usuario.",
+      "Capacitación en herramientas y metodologías ágiles dentro de la empresa.",
+    ],
+  },
+  {
     job: "Software Engineer",
     company: "Vass Chile",
-    date: "2022 - 2024",
+    date: "2019 - 2023",
     responsibilities: [
-      "Diseño de consultas en Oracle (paquetes, procedimientos, funciones y vistas).",
-      "Responsable funcional de sitios web y APIs REST.",
-      "Implementación de microservicios con Node.js y Angular.",
-      "Participación en proyecto de pasarela de pagos para Caja Los Andes.",
+      "Desarrollo de consultas complejas en bases de datos Oracle (procedimientos y vistas).",
+      "Mantenimiento y mejora de sistemas web empresariales y servicios REST.",
+      "Integración de microservicios para soluciones escalables con Node.js y Angular.",
+      "Colaboración en la evolución técnica de plataformas para clientes corporativos.",
     ],
   },
   {
     job: "Desarrollador Full Stack",
     company: "Grupo SYCAR",
-    date: "2019 - 2022",
+    date: "2023 - 2025",
     responsibilities: [
-      "Desarrollo completo de aplicaciones web (frontend y backend).",
-      "Uso de React, Node.js y Laravel para proyectos robustos y seguros.",
-      "Diseño de interfaces intuitivas para clientes internos y externos.",
-    ],
-  },
-  {
-    job: "Práctica Profesional",
-    company: "Vass Chile",
-    date: "2023",
-    responsibilities: [
-      "Desarrollo Front-End y Back-End con React, Angular y Node.js.",
-      "Participación en proyectos del sector salud.",
-      "Diseño de interfaces modernas y funcionales.",
-      "Cursos internos de especialización en tecnologías web.",
+      "Desarrollo integral de sistemas web utilizando React en el frontend y Node.js o Laravel en el backend.",
+      "Implementación de nuevas funcionalidades enfocadas en rendimiento y seguridad.",
+      "Optimización de interfaces centradas en la experiencia de usuario (UX).",
+      "Liderazgo técnico en proyectos para clientes internos y externos del sector privado.",
     ],
   },
 ];
