@@ -34,7 +34,8 @@ const NavbarLinks = () => {
             <span className="relative">
               {link.link}
               {/* Línea inferior animada solo en mobile si está activo */}
-              <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[2px] w-[75%] origin-left scale-x-0 bg-gradient-to-r from-cyan to-orange transition-transform duration-300 sm:block hidden"></span>
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[2px] w-0 bg-gradient-to-r from-cyan to-orange transition-all duration-300 sm:block hidden lg:hidden"></span>
+
             </span>
           </Link>
 
